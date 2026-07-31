@@ -1,0 +1,15 @@
+{
+  "project": "fluxium",
+  "platform": "ios",
+  "github": {
+    "owner": "juzuk1q",
+    "repo": "fluxium"
+  },
+  "ios": {},
+  "flutter": {
+    "version": "3.44.1",
+    "watch": {}
+  },
+  "reactNative": {},
+  "mobai": {}
+}
