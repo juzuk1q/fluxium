@@ -17,7 +17,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
   });
 
-  static const double contentHeight = 64;
+  static const double contentHeight = 56;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +25,17 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: false,
       child: Container(
         height: contentHeight,
-        margin: po(b: 12),
-        padding: ps(h: 24),
+        padding: po(l: 24, r: 24, t: 10),
         color: AppColors.surfaceBackground,
         child: Row(
           crossAxisAlignment: .center,
           children: [
             Expanded(
               child: Align(
-                alignment: Alignment(-0.75, 8),
+                alignment: .centerLeft,
                 child: Text(
                   leftText,
-                  style: textStyle ?? AppTextStyles.header.copyWith(height: 1.7),
+                  style: textStyle ?? AppTextStyles.header,
                   ),
                 ),
               ),
@@ -44,17 +43,14 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                 flex: 2,
                 child: Center(
-                  child: Align(
-                    alignment: Alignment(0, 2),
-                      child: centerWidget!
-                  ),
+                  child: centerWidget!,
                 ),
               ),
             Expanded(
               child: Align(
-                alignment: Alignment(1, 0.5),
+                alignment: .centerRight,
                 child: Transform.translate(
-                  offset: Offset(0, 4),
+                  offset: Offset(0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: actions ?? [],

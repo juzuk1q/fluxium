@@ -20,7 +20,7 @@ class _AppStatusState extends State<AppStatus> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.fh,
+      height: 36.fh,
       decoration: BoxDecoration(
         color: AppColors.ghostButtonBackground,
         border: .all(color: AppColors.ghostButtonBorder),
@@ -31,6 +31,7 @@ class _AppStatusState extends State<AppStatus> {
         mainAxisSize: .min,
         children: [
           SvgPicture.asset(widget.state.icon, colorFilter: .mode(widget.state.color, .srcIn)),
+          SizedBox(width: 4,),
           Text(widget.state.status, style: AppTextStyles.body14.copyWith(color: widget.state.color))
         ]
       ),

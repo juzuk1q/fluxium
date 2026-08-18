@@ -1,11 +1,16 @@
 import 'package:Fluxium/core/data/models/protocol.dart';
 import 'package:Fluxium/core/ui/theme/app_text_styles.dart';
-import 'package:Fluxium/core/ui/widgets/configs/app_local.dart';
-import 'package:Fluxium/core/ui/widgets/configs/app_server_card.dart';
-import 'package:Fluxium/core/ui/widgets/configs/app_subscription_cart.dart';
+import 'package:Fluxium/core/ui/widgets/configs/modalSheets/app_add_button.dart';
+import 'package:Fluxium/core/ui/widgets/configs/modalSheets/app_filter_button.dart';
+import 'package:Fluxium/core/ui/widgets/configs/subscriptionTile/app_local.dart';
+import 'package:Fluxium/core/ui/widgets/configs/serverTile/app_server_card.dart';
+import 'package:Fluxium/core/ui/widgets/configs/subscriptionTile/app_subscription_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vize/vize.dart';
+import 'dart:io';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:Fluxium/core/ui/theme/app_colors.dart';
 import 'package:Fluxium/core/ui/widgets/app_top_bar.dart';
 import 'package:Fluxium/core/ui/widgets/home/app_icon_button.dart';
@@ -18,6 +23,12 @@ class ConfigsScreen extends StatefulWidget {
 }
 
 class _ConfigsScreenState extends State<ConfigsScreen> {
+
+  void _handleConfigString(String value) {
+    // TODO: логика добавления конфига (парсинг URL/JSON, сохранение и т.п.)
+    print('Config received: $value');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +39,27 @@ class _ConfigsScreenState extends State<ConfigsScreen> {
         actions: [
           AppIconButton(icon: 'assets/icons/latency.svg'),
           AppIconButton(icon: 'assets/icons/refresh.svg'),
-          AppIconButton(icon: 'assets/icons/plus.svg'),
+          AppAddConfigsButton(
+            onConfigString: _handleConfigString,
+            onScanQr: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (_) => MobileScanner(
+                  onDetect: (capture) {
+                    final code = capture.barcodes.first.rawValue;
+                    if (code != null) _handleConfigString(code);
+                    Navigator.pop(context);
+                  },
+                ),
+              ));
+            },
+            onPickFile: () async {
+              final result = await FilePicker.platform.pickFiles();
+              if (result != null) {
+                final content = await File(result.files.single.path!).readAsString();
+                _handleConfigString(content);
+              }
+            },
+          ),
         ],
       ),
       body: Container(
@@ -40,7 +71,7 @@ class _ConfigsScreenState extends State<ConfigsScreen> {
             child: Column(
               children: [
                 Container(
-                  margin: po(b: 6, l: 20, r: 20, t: 0),
+                  margin: po(b: 0, l: 20, r: 20, t: 8),
                   child: Row(
                     crossAxisAlignment: .center,
                     children: [
@@ -58,10 +89,17 @@ class _ConfigsScreenState extends State<ConfigsScreen> {
                               color: AppColors.contentPrimary,
                             ),
                             decoration: InputDecoration(
-                              prefixIcon: SvgPicture.asset(
-                                'assets/icons/search.svg',
-                                color: AppColors.contentSelected,
-                                height: 12,
+                              prefixIcon: Transform.scale(
+                                scale: .65,
+                                child: SvgPicture.asset(
+                                  'assets/icons/search.svg',
+                                  colorFilter: .mode(
+                                    AppColors.contentSelected,
+                                    BlendMode.srcIn,
+                                  ),
+                                  height: 1,
+                                  width: 1,
+                                ),
                               ),
                               hintText: 'Search proxies, protocols...',
                               hintStyle: AppTextStyles.body14.copyWith(
@@ -74,8 +112,14 @@ class _ConfigsScreenState extends State<ConfigsScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 6),
-                      AppIconButton(icon: 'assets/icons/filter.svg', height: 15), // todo: recode
+                      AppFilter(
+                        availableCountries: ['Japan', 'Germany', 'United States'], // с сервера
+                        onApply: (result) {
+                          result.sortValue;
+                          // result.protocols, result.pingOrder,
+                          // result.minPing, result.maxPing, result.countries
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -122,37 +166,37 @@ class _ConfigsScreenState extends State<ConfigsScreen> {
                   lastUpdated: DateTime(2026, 7, 5, 19, 24),
                   serverTiles: const [
                     ServerTile(
-                      countryFlagEmoji: '🇯🇵',
+                      countryFlagEmoji: 'jp.webp',
                       name: 'Tokyo, Japan',
                       protocol: AppServerProtocol.hysteria2,
                       pingMs: 45,
                     ),
                     ServerTile(
-                      countryFlagEmoji: '🇰🇷',
+                      countryFlagEmoji: 'kr.webp',
                       name: 'Seoul, South Korea',
                       protocol: AppServerProtocol.vless,
                       pingMs: 140,
                     ),
                     ServerTile(
-                      countryFlagEmoji: '🇩🇪',
+                      countryFlagEmoji: 'de.webp',
                       name: 'Berlin, Germany',
                       protocol: AppServerProtocol.unknown,
                       pingMs: 200,
                     ),
                     ServerTile(
-                      countryFlagEmoji: '🇩🇪',
+                      countryFlagEmoji: 'de.webp',
                       name: 'Berlin, Germany',
                       protocol: AppServerProtocol.trojan,
                       pingMs: 200,
                     ),
                     ServerTile(
-                      countryFlagEmoji: '🇨🇳',
+                      countryFlagEmoji: 'cn.webp',
                       name: 'Shanghai, China',
                       protocol: AppServerProtocol.wireguard,
                       pingMs: 300,
                     ),
                     ServerTile(
-                      countryFlagEmoji: '🇨🇳',
+                      countryFlagEmoji: 'cn.webp',
                       name: 'Shanghai, China',
                       protocol: AppServerProtocol.shadowsocks,
                       pingMs: 300,

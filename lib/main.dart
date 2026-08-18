@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:Fluxium/core/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
@@ -15,10 +14,11 @@ void main() {
       systemNavigationBarContrastEnforced: false,
       statusBarColor: Colors.transparent,
     ),
-  );;
+  );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-  runApp(const MyApp());
+  runApp(
+     MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,13 +32,12 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         Vize.init(
           context,
-          figmaWidth: 393,   // width
-          figmaHeight: 852,  // height
+          figmaWidth: 393, // width
+          figmaHeight: 852, // height
         );
-        return child!;
+        return MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: .linear(1)), child: child!);
       },
       home: RootScreen(),
     );
   }
 }
-

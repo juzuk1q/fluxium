@@ -18,35 +18,62 @@ class _IPWidgetState extends State<IPWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 345.fw,
-      height: 61.fh,
+      height: 62.fh,
       decoration: BoxDecoration(
         color: AppColors.ghostButtonBackground,
         border: Border.all(color: AppColors.ghostButtonBorder),
         borderRadius: .circular(16.r),
       ),
       margin: po(l: 5, r: 5, b: 8),
-      padding: po(r: 16, t: 10, b: 10, l: 14),
+      padding: po(r: 16, t: 10, b: 8, l: 8),
       child: Row(
         mainAxisAlignment: .start,
         crossAxisAlignment: .center,
         children: [
-          Text('🇷🇺', style: TextStyle(fontFamily: 'Emoji', fontSize: 22),),
-          SizedBox(width: 12.fw),
+          Container(
+            height: 44,
+            width: 44,
+            alignment: .center,
+            decoration: BoxDecoration(
+              color: AppColors.contentPrimary.withValues(alpha: .1),
+              borderRadius: .circular(8.r),
+            ),
+            child: Image.asset('assets/emoji/ru.webp', height: 28, width: 28),
+          ),
+          SizedBox(width: 10.fw),
           Column(
             crossAxisAlignment: .start,
             children: [
               Row(
                 crossAxisAlignment: .center,
                 children: [
-                  Text('Your IP', style: AppTextStyles.body12.copyWith(color: AppColors.contentSecondary),),
-                  Text(' · Exposed'.toUpperCase(), style: AppTextStyles.body10.copyWith(color: AppColors.error, fontWeight: .w700),)
+                  Text(
+                    'Your IP',
+                    style: AppTextStyles.body12.copyWith(
+                      color: AppColors.contentSecondary,
+                    ),
+                  ),
+                  Text(
+                    ' · Exposed'.toUpperCase(),
+                    style: AppTextStyles.body10.copyWith(
+                      color: AppColors.error,
+                      fontWeight: .w700,
+                    ),
+                  ),
                 ],
               ),
+              SizedBox(height: 4.fh,),
               Row(
                 children: [
-                Text('188.162.58.103', style: AppTextStyles.metricIP,),
-                Text(' · Moscow, Russia', style: AppTextStyles.body10.copyWith(color: AppColors.contentSecondary),)
-              ],)
+                  Text('188.162.58.103', style: AppTextStyles.metricIP.copyWith(height: 1)),
+                  Text(
+                    ' · Moscow, Russia',
+                    style: AppTextStyles.body10.copyWith(
+                      color: AppColors.contentSecondary,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           Spacer(),

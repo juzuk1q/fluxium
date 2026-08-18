@@ -45,12 +45,12 @@ class AppBottomBar extends StatelessWidget {
             border: Border.all(color: AppColors.border),
             boxShadow: [
               BoxShadow(
-                color: Color(0xff000000).withOpacity(0.7),
+                color: Color(0xff000000).withValues(alpha: .7),
                 offset: Offset(145, 35),
                 blurRadius: 50,
               ),
               BoxShadow(
-                color: Color(0xff000000).withOpacity(0.7),
+                color: Color(0xff000000).withValues(alpha: .7),
                 offset: Offset(-145, 35),
                 blurRadius: 50,
               ),
@@ -68,7 +68,7 @@ class AppBottomBar extends StatelessWidget {
                     padding: .symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: selected
-                          ? AppColors.ghostButtonBackground.withOpacity(0.2)
+                          ? AppColors.ghostButtonBackground.withValues(alpha: .2)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(360),
                     ),

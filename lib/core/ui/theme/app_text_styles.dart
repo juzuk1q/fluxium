@@ -1,7 +1,6 @@
 import 'app_colors.dart';
 import 'package:vize/vize.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
   AppTextStyles._();

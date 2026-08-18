@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.surfaceBackground,
       appBar: AppTopBar(
         leftText: 'v/1.1.1',
-        textStyle: AppTextStyles.body15.copyWith(color: AppColors.contentDisabled, fontWeight: .w700, height: 4),
+        textStyle: AppTextStyles.body15.copyWith(color: AppColors.contentDisabled, fontWeight: .w700),
         centerWidget: AppStatus.isConnected(),
       ),
       body: Container(
@@ -55,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     MetricWidget(
                       icon: 'assets/icons/download.svg',
                       text: 'download',
-                      metricValue: '1337',
+                      metricValue: '-',
                       metricUnit: 'mb/s',
-                      color: AppColors.download,
+                      color: AppColors.contentSecondary,
                     ),
                     MetricWidget(
                       icon: 'assets/icons/upload.svg',

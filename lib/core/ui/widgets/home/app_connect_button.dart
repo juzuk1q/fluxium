@@ -44,7 +44,7 @@ class _ConnectButtonState extends State<ConnectButton> {
               colors: [Color(0xFF1E1E1E), Color(0xFF2E2E2E)],
             ),
             boxShadow: [BoxShadow(
-              color: Color(0xff767676).withOpacity(0.2),
+              color: Color(0xff767676).withValues(alpha: .2),
               offset: Offset(0, -5),
               blurRadius: 10,
             )],

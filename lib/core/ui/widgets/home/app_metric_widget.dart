@@ -29,7 +29,7 @@ class _MetricWidgetState extends State<MetricWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 168.fw,
-      height: 94.fh,
+      height: 97.fh,
       decoration: BoxDecoration(
         color: AppColors.ghostButtonBackground,
         border: Border.all(color: AppColors.ghostButtonBorder),
